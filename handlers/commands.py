@@ -42,7 +42,9 @@ async def try_on(message: types.Message):
 
 async def shoes(message: types.Message):
     await message.answer(f'Вы зашли в категорию "{message.text[1::]}"! \n'
-                         'Здесь будут все товары этой категории! ⬇', reply_markup=buttons.all_categories)
+                         'Здесь будут все товары этой категории! ⬇'
+                         '\n'
+                         'В котором можно будет заполнить данные товара и свои данные(ФИО, номер телефона и т.д)', reply_markup=buttons.all_categories)
 
 
 async def price(message: types.Message):
@@ -58,6 +60,8 @@ async def all_price(message: types.Message):
     await message.answer("Здесь будут товары всех ценовых категорий! ⬇")
 
 
+async def all_products(message: types.Message):
+    await message.answer("Выберите филиал?", reply_markup=buttons.all_products)
 # ==================================================================================================================
 
 def register_start(dp: Dispatcher):
@@ -70,6 +74,7 @@ def register_start(dp: Dispatcher):
     dp.register_message_handler(shoes, commands=['Обувь', 'Нижнее_белье', 'Акссесуары', 'Верхняя_одежда', 'Штаны'])
 
     # ======================================================================
+    dp.register_message_handler(all_products, commands=['Товары'])
     dp.register_message_handler(price_categories, commands=['Все_товары!'])
     dp.register_message_handler(all_price, commands=['Все_цены!'])
-    dp.register_message_handler(price)
+    dp.register_message_handler(price, commands=[''])

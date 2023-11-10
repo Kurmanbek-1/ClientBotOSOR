@@ -55,16 +55,20 @@ city_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                         KeyboardButton('Москва 1-филиал'))
 
 # ======================================================================================================================
+all_products = ReplyKeyboardMarkup(resize_keyboard=True,
+                                     one_time_keyboard=True,
+                                     row_width=2).add(KeyboardButton("/Товары_Бишкек!"))
+
 
 all_categories = ReplyKeyboardMarkup(resize_keyboard=True,
                                      one_time_keyboard=True,
-                                     row_width=2).add(KeyboardButton('/Обувь'),
-                                                      KeyboardButton('/Нижнее_белье'),
-                                                      KeyboardButton('/Акссесуары'),
-                                                      KeyboardButton('/Верхняя_одежда'),
-                                                      KeyboardButton('/Штаны'),
-                                                      KeyboardButton('/Все_товары!'),
-                                                      back)
+                                     row_width=2).add(KeyboardButton('Обувь'),
+                                                      KeyboardButton('Нижнее_белье'),
+                                                      KeyboardButton('Акссесуары'),
+                                                      KeyboardButton('Верхняя_одежда'),
+                                                      KeyboardButton('Штаны'),
+                                                      KeyboardButton('Все_товары!'),
+                                                      cancel_button)
 
 price_categories = ReplyKeyboardMarkup(resize_keyboard=True,
                                        one_time_keyboard=True,
