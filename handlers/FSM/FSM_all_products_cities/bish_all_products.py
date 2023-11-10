@@ -31,11 +31,13 @@ async def load_category(message: types.Message):
     category_name = message.text
 
     try:
-        cursor.execute("SELECT category FROM products_coming WHERE category = ?", (category_name,))
+        cursor.execute("SELECT * FROM products_coming WHERE category = ?", (category_name,))
         categories = cursor.fetchall()
+        print(categories)
     except Exception as e:
         await message.answer(f"Произошла ошибка при выполнении SQL-запроса: {e}")
         return
+
 
     if not categories:
         await message.answer(f"Категория '{category_name}' не найдена.")
