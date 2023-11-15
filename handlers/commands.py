@@ -69,7 +69,7 @@ def register_start(dp: Dispatcher):
     dp.register_message_handler(back, commands=['<назад'])
     dp.register_message_handler(about, commands=['О_нас!', 'about'])
     # ======================================================================
-    dp.register_message_handler(order_products, commands=['Заказать'])
+    # dp.register_message_handler(order_products, commands=['Заказать'])
     dp.register_message_handler(try_on, commands=['Примерить'])
     dp.register_message_handler(shoes, commands=['Обувь', 'Нижнее_белье', 'Акссесуары', 'Верхняя_одежда', 'Штаны'])
 

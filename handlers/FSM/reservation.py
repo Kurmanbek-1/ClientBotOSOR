@@ -41,7 +41,6 @@ async def load_contact(message: types.Message, state: FSMContext):
     await OrderFSM.next()
 
 
-
 async def load_size(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['size'] = message.text

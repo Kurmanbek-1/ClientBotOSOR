@@ -72,14 +72,13 @@ async def finish_load_photos(message: types.Message, state: FSMContext):
 
 
 async def load_submit(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        if message.text.lower() == 'да':
-            await bot.send_media_group(chat_id=CHANNEL_ID, media=media_group)
-            await state.finish()
-            media_group.clean()
-        else:
-            await message.answer("Отмена!")
-            await state.finish()
+    if message.text.lower() == 'да':
+        await bot.send_media_group(chat_id=CHANNEL_ID, media=media_group)
+        await state.finish()
+        media_group.clean()
+    else:
+        await message.answer("Отмена!")
+        await state.finish()
 
 
 async def cancel_reg(message: types.Message, state: FSMContext):
