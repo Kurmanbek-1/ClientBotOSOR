@@ -9,18 +9,17 @@ storage = MemoryStorage()
 TOKEN = config('TOKEN')
 Director = [1738805992, ]
 CHANNEL_ID = int(config('CHANNEL_ID'))
-Admins = [908379438, ]
+Admins = [995712956, ]
 
-Manager = 908379438
+Manager = [995712956, ]
 bot = Bot(TOKEN)
 
 dp = Dispatcher(bot=bot, storage=storage)
 
-ip = config('ip')
-PostgresUser = config('PostgresUser')
-PostgresPassword = config('PostgresPassword')
-DATABASE = config('DATABASE')
+# ip = config('ip')
+# PostgresUser = config('PostgresUser')
+# PostgresPassword = config('PostgresPassword')
+# DATABASE = config('DATABASE')
 
-POSTGRES_URL = f"postgresql://{PostgresUser}:{PostgresPassword}@{ip}/{DATABASE}"
-
+POSTGRES_URL = "postgresql://postgres:123@127.0.0.1:5432/osor_tg_bot"
 data_b = Database(POSTGRES_URL)
