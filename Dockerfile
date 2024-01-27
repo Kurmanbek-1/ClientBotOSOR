@@ -1,7 +1,5 @@
 FROM python:3.10
 
-EXPOSE 5002
-
 RUN mkdir -p /app/osor_client_bot
 WORKDIR /app/osor_client_bot
 
