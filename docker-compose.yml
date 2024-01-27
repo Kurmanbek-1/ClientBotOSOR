@@ -1,11 +1,23 @@
-version: '3.3'
+version: '3.9'
 
 services:
   bot:
     container_name: osor_client_bot
-    restart: always
+    restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - /opt/osor_client_bot
+      - ..:/app/ess-backend
+    command: "sh /app/osor_client_bot/entrypoints/start_bot.sh"
+    env_file:
+      - .env
+    networks:
+      - db_network
+      - shared_network
+
+networks:
+  db_network:
+    driver: bridge
+  shared_network:
+    external: true

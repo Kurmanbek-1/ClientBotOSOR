@@ -1,12 +1,12 @@
 FROM python:3.10
+
 EXPOSE 5002
-RUN mkdir -p /opt/osor_client_bot
-WORKDIR /opt/osor_client_bot
 
-RUN mkdir -p /opt/osor_client_bot/requirements
-ADD requirements.txt /opt/osor_client_bot/
+RUN mkdir -p /app/osor_client_bot
+WORKDIR /app/osor_client_bot
 
-COPY . /opt/osor_client_bot/
+COPY . .
 
-RUN pip install -r requirements.txt
-CMD ["python", "/opt/osor_client_bot/main.py"]
+RUN chmod -R 644 entrypoints/* && \
+        chmod +x entrypoints/* && \
+                    pip install -r requirements.txt

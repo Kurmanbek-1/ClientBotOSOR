@@ -21,5 +21,12 @@ dp = Dispatcher(bot=bot, storage=storage)
 # PostgresPassword = config('PostgresPassword')
 # DATABASE = config('DATABASE')
 
-POSTGRES_URL = "postgresql://postgres:123@127.0.0.1:5432/osor_tg_bot"
+user = config("POSTGRES_USER")
+password = config("POSTGRES_PASSWORD")
+hostname = config("POSTGRES_HOST")
+database_name = config("POSTGRES_DB")
+port = config("POSTGRES_PORT")
+
+POSTGRES_URL = f"postgresql://{user}:{password}@{hostname}:{port}/{database_name}"
+
 data_b = Database(POSTGRES_URL)

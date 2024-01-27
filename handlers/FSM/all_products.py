@@ -7,10 +7,11 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 import os
 from keyboards import buttons
 
+from config import user, password, hostname, database_name
 
 async def get_conn():
-    conn = await asyncpg.connect(user='postgres', password='123',
-                                 database='osor_tg_bot', host='localhost')
+    conn = await asyncpg.connect(user=user, password=password,
+                                 database=database_name, host=hostname)
     return conn
 
 

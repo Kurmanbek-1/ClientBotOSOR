@@ -5,7 +5,7 @@ from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import bot, CHANNEL_ID
 import os
 from keyboards import buttons
-
+from config import user, password, database_name, hostname
 # Добавим константу для количества товаров, выводимых изначально
 PRODUCTS_PER_PAGE = 7
 
@@ -14,8 +14,8 @@ chat_counters = {}
 
 
 async def get_conn():
-    conn = await asyncpg.connect(user='postgres', password='123',
-                                 database='osor_tg_bot', host='localhost')
+    conn = await asyncpg.connect(user=user, password=password,
+                                 database=database_name, host=hostname)
     return conn
 
 
