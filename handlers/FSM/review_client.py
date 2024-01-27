@@ -22,7 +22,7 @@ class review_fsm(StatesGroup):
 
 async def fsm_start(message: types.Message):
     await review_fsm.articule.set()
-    await message.answer("Артикуль товара?", reply_markup=buttons.cancel_markup)
+    await message.answer("Артикул товара?", reply_markup=buttons.cancel_markup)
 
 
 async def load_articule(message: types.Message, state: FSMContext):
@@ -60,7 +60,7 @@ async def submit_photo(message: types.Message, state: FSMContext):
     elif message.text == 'Нет':
         async with state.proxy() as data:
             data["date"] = datetime.now()
-            await message.answer(f"Артикуль товара: {data['articule']}"
+            await message.answer(f"Артикул товара: {data['articule']}"
                                  f"Название товара: {data['name']}\n"
                                  f"Отзыв о товаре: {data['review']}\n"
                                  f"Город: {data['city']}", )
@@ -79,7 +79,7 @@ async def load_photo(message: types.Message, state: FSMContext):
         await message.answer_photo(
             data["photo"],
             caption=f"Данные товара: \n"
-                    f"Артикуль товара: {data['articule']}\n"
+                    f"Артикул товара: {data['articule']}\n"
                     f"Название товара: {data['name']}\n"
                     f"Отзыв о товаре: {data['review']}\n"
                     f"Город: {data['city']}",

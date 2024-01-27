@@ -51,20 +51,20 @@ async def load_size(message: types.Message, state: FSMContext):
     await OrderFSM.next()
 
 
-
 async def load_submit(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        if message.text.lower() == 'да':
-            await message.answer('Отлично!\n'
-                                 'Ваш заказ принят! Пожалуйста ожидайте с вами свяжутся наши менеджеры')
-            await bot.send_contact(chat_id=Manager,
-                                   phone_number=data['contact']['phone_number'],
-                                   first_name=data['contact']['first_name'])
-            await state.finish()
+        for manager in Manager:
+            if message.text.lower() == 'да':
+                await message.answer('Отлично!\n'
+                                     'Ваш заказ принят! Пожалуйста ожидайте с вами свяжутся наши менеджеры')
+                await bot.send_contact(chat_id=manager,
+                                       phone_number=data['contact']['phone_number'],
+                                       first_name=data['contact']['first_name'])
+                await state.finish()
 
-        else:
-            await message.answer("Отмена!")
-            await state.finish()
+            else:
+                await message.answer("Отмена!")
+                await state.finish()
 
     # Вывод из базы
 

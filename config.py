@@ -7,11 +7,11 @@ storage = MemoryStorage()
 
 
 TOKEN = config('TOKEN')
-Director = [1738805992, ]
+Director = [6451475162, ]
 CHANNEL_ID = int(config('CHANNEL_ID'))
-Admins = [995712956, 908379438, ]
+Admins = [995712956, ]
 
-Manager = [995712956, 908379438, ]
+Manager = [6451475162, ]
 bot = Bot(TOKEN)
 
 dp = Dispatcher(bot=bot, storage=storage)
