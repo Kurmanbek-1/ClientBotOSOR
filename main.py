@@ -19,12 +19,6 @@ async def on_startup(_):
         await data_b.connect()
 
 
-
-async def on_shutdown(_):
-    for Admin in Admins:
-        await bot.send_message(chat_id=Admin, text="Бот отключен!", reply_markup=None)
-
-
 # ==================================================================================================================
 start.register_start(dp)
 db_orm.sql_get_ORM(dp)
@@ -40,4 +34,4 @@ register_start(dp)
 # ===========================================================================
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup, on_shutdown=on_shutdown)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
