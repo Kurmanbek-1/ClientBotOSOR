@@ -16,11 +16,6 @@ bot = Bot(TOKEN)
 
 dp = Dispatcher(bot=bot, storage=storage)
 
-# ip = config('ip')
-# PostgresUser = config('PostgresUser')
-# PostgresPassword = config('PostgresPassword')
-# DATABASE = config('DATABASE')
-
 user = config("POSTGRES_USER")
 password = config("POSTGRES_PASSWORD")
 hostname = config("POSTGRES_HOST")
