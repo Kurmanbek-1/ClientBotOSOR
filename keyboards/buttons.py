@@ -27,6 +27,7 @@ start = ReplyKeyboardMarkup(resize_keyboard=True,
                                              KeyboardButton('/Написать_отзыв'),
                                              KeyboardButton('/Заказать'),
                                              KeyboardButton('/Примерить'),
+                                             KeyboardButton('/Забронировать'),
                                              KeyboardButton('/О_нас!'))
 
 startForAdmins = ReplyKeyboardMarkup(resize_keyboard=True,
