@@ -61,7 +61,8 @@ async def load_category(message: types.Message, state: FSMContext):
 
         if not os.path.exists(photo_path):
             print(f"Файл не найден: {photo_path}")
-            continue
+            photo_path = 'media/error_img.png'  # Use the default error image path
+
         try:
             with open(photo_path, 'rb') as photo:
                 await message.answer_photo(photo=photo, caption=f"Товар: {category[1]}\n"
@@ -75,6 +76,7 @@ async def load_category(message: types.Message, state: FSMContext):
         except Exception as e:
             print(f"Ошибка при открытии файла {photo_path}: {e}")
             continue
+
 
 
 async def cancel_reg(message: types.Message, state: FSMContext):
