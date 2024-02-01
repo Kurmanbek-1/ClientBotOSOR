@@ -8,7 +8,8 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ..:/app/ess-backend
+      - ..:/app/osor_client_bot
+      - ../../WorkBot/media:/app/osor_client_bot/media
     command: "sh /app/osor_client_bot/entrypoints/start_bot.sh"
     env_file:
       - .env
