@@ -10,7 +10,7 @@ from keyboards import buttons
 
 async def get_conn():
     conn = await asyncpg.connect(user='postgres', password='123',
-                                 database='osor_tg_bot', host='localhost')
+                                 database='osor_tg_bot', host='postgres_compass')
     return conn
 
 
@@ -41,6 +41,8 @@ async def load_category(message: types.Message, state: FSMContext):
     data = await state.get_data()
     city = data.get("city")
 
+    conn = None  # Инициализируем переменную conn перед try
+
     try:
         conn = await get_conn()
         categories = await conn.fetch(
@@ -50,7 +52,8 @@ async def load_category(message: types.Message, state: FSMContext):
         await message.answer(f"Ошибка SQL-запроса: {e}")
         return
     finally:
-        await conn.close()
+        if conn:
+            await conn.close()
 
     if not categories:
         await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.")
@@ -72,10 +75,11 @@ async def load_category(message: types.Message, state: FSMContext):
                                                                 f"Категория: {category[6]}\n"
                                                                 f"Артикул: {category[7]}\n",
                                            reply_markup=buttons.start)
-                await state.finish()
         except Exception as e:
             print(f"Ошибка при открытии файла {photo_path}: {e}")
             continue
+
+    await state.finish()  # Завершить состояние после обработки всех категорий
 
 
 

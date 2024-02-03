@@ -1,12 +1,15 @@
-FROM python:3.10
-EXPOSE 5002
-RUN mkdir -p /opt/osor_client_bot
-WORKDIR /opt/osor_client_bot
+# Используем официальный образ Python
+FROM python:3.8-slim
 
-RUN mkdir -p /opt/osor_client_bot/requirements
-ADD requirements.txt /opt/osor_client_bot/
+# Устанавливаем зависимости
+COPY requirements.txt /app/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
-COPY . /opt/osor_client_bot/
+# Копируем файлы в контейнер
+COPY . /app
 
-RUN pip install -r requirements.txt
-CMD ["python", "/opt/osor_client_bot/main.py"]
+# Устанавливаем рабочую директорию
+WORKDIR /app
+
+# Запускаем бота
+CMD ["python", "main.py"]
