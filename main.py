@@ -2,7 +2,7 @@ from aiogram.utils import executor
 import logging
 from handlers.FSM import review_client, send_to_tg_channel, all_products, ButtoninProducts, order, reservation
 # ===========================================================================
-from config import dp, bot, Admins
+from config import dp, bot, Developers
 from handlers.commands import register_start
 from handlers import start
 from keyboards import buttons
@@ -13,16 +13,12 @@ from db.db_psql import db_osor
 
 # ==================================================================================================================
 async def on_startup(_):
-    for Admin in Admins:
-        await bot.send_message(chat_id=Admin, text="Бот запущен!", reply_markup=buttons.startForAdmins)
+    for dev in Developers:
+        await bot.send_message(chat_id=dev, text="Бот запущен!", reply_markup=buttons.startForAdmins)
         await db_orm.sql_create()
         await data_b.connect()
 
 
-
-async def on_shutdown(_):
-    for Admin in Admins:
-        await bot.send_message(chat_id=Admin, text="Бот отключен!", reply_markup=None)
 
 
 # ==================================================================================================================
@@ -40,4 +36,4 @@ register_start(dp)
 # ===========================================================================
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    executor.start_polling(dp, skip_updates=True, on_startup=on_startup, on_shutdown=on_shutdown)
+    executor.start_polling(dp, skip_updates=True, on_startup=on_startup)

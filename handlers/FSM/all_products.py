@@ -10,7 +10,7 @@ from keyboards import buttons
 
 async def get_conn():
     conn = await asyncpg.connect(user='postgres', password='123',
-                                 database='osor_tg_bot', host='localhost')
+                                 database='osor_tg_bot', host='postgres_container_compass')
     return conn
 
 
@@ -59,12 +59,18 @@ async def load_category(message: types.Message, state: FSMContext):
     for category in categories:
         photo_path = category[9]
 
+        print(f"Путь к изображению: {photo_path}")  # Добавьте эту строку для проверки пути
+
         if not os.path.exists(photo_path):
             print(f"Файл не найден: {photo_path}")
-            photo_path = 'media/error_img.png'  # Use the default error image path
+            photo_path = 'media/error_img.png'  # Используйте путь к изображению ошибки по умолчанию
+            print(f"Новый путь: {photo_path}")  # Добавьте эту строку для проверки нового пути
+        else:
+            print(f"Файл найден: {photo_path}")
 
         try:
             with open(photo_path, 'rb') as photo:
+                print(f"Файл успешно открыт: {photo_path}")
                 await message.answer_photo(photo=photo, caption=f"Товар: {category[1]}\n"
                                                                 f"Информация о товаре: {category[2]}\n"
                                                                 f"Цена: {category[4]}\n"
