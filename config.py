@@ -5,12 +5,12 @@ from db.db_psql.db_osor import Database
 
 storage = MemoryStorage()
 
-TOKEN = "6300075993:AAHYw2L4LJ8BgoVwx1P1nO3kHPjWzivHxBM"
-Director = [6451475162, ]
+TOKEN = "6664323534:AAGINBs1rzRZ3wsyTjE1YFKUrcbGb57FLfQ"
+Director = [659106628, ]
 CHANNEL_ID = int(config('CHANNEL_ID'))
-Admins = [995712956, ]
+Admins = [659106628, ]
 
-Manager = [995712956, ]
+Manager = [659106628, ]
 bot = Bot(TOKEN)
 
 dp = Dispatcher(bot=bot, storage=storage)

@@ -1,5 +1,5 @@
 # Используем официальный образ Python
-FROM python:3.8-slim
+FROM python:3.10
 
 # Устанавливаем зависимости
 COPY requirements.txt /app/requirements.txt
