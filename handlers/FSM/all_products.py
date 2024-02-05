@@ -57,7 +57,7 @@ async def load_category(message: types.Message, state: FSMContext):
     categories = await get_product_from_category(pool, category_name, city)
 
     if not categories:
-        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.")
+        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.", reply_markup=buttons.all_categories)
         return
 
     for category in categories:
@@ -75,9 +75,8 @@ async def load_category(message: types.Message, state: FSMContext):
                                                             f"Город: {category[5]}\n"
                                                             f"Категория: {category[6]}\n"
                                                             f"Артикул: {category[7]}\n",
-                                       reply_markup=buttons.start)
+                                       reply_markup=buttons.all_categories)
 
-    await state.finish()  # Завершить состояние после обработки всех категорий
 
 
 
