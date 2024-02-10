@@ -136,4 +136,4 @@ def register_start(dp: Dispatcher):
     dp.register_message_handler(send_products, commands=['Рассылка'])
     # ======================================================================
     dp.register_message_handler(ButtonClient, commands=['Клиентские_кнопки!'])
-    dp.register_message_handler(support_error, commands=['Ориентировка_по_боту'])
+    dp.register_message_handler(support_error, commands=['Филиалы'])

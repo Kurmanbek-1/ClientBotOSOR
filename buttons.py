@@ -29,7 +29,7 @@ start = ReplyKeyboardMarkup(resize_keyboard=True,
                                              KeyboardButton('/Примерить'),
                                              KeyboardButton('/Забронировать'),
                                              KeyboardButton('/О_нас!'),
-                                             KeyboardButton('/Ориентировка_по_боту'))
+                                             KeyboardButton('/Филиалы'))
 
 
 startForAdmins = ReplyKeyboardMarkup(resize_keyboard=True,
@@ -37,7 +37,7 @@ startForAdmins = ReplyKeyboardMarkup(resize_keyboard=True,
                             row_width=2).add(KeyboardButton('/Клиентские_кнопки!'),
                                              KeyboardButton('/Рассылка'),
                                              KeyboardButton('/Все_отзывы!'),
-                                             KeyboardButton('/Ориентировка_по_боту'))
+                                             KeyboardButton('/Филиалы'))
 
 
 send_products = ReplyKeyboardMarkup(resize_keyboard=True,
