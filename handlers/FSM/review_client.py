@@ -3,7 +3,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 
-from keyboards import buttons
+import buttons
 from datetime import datetime
 from db import sql_queris
 

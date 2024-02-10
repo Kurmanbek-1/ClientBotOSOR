@@ -4,8 +4,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from config import POSTGRES_URL, bot
-import os
-from keyboards import buttons
+import buttons
 
 
 async def get_conn():
@@ -34,6 +33,8 @@ async def choose_city(message: types.Message, state: FSMContext):
 
 
 """Вывод категорий"""
+
+
 async def get_product_from_category(pool, category, city):
     try:
         async with pool.acquire() as connection:
@@ -47,6 +48,7 @@ async def get_product_from_category(pool, category, city):
         await bot.send_message(f"Error executing SQL query: {e}")
         return None
 
+
 async def load_category(message: types.Message, state: FSMContext):
     category_name = message.text
     data = await state.get_data()
@@ -57,16 +59,12 @@ async def load_category(message: types.Message, state: FSMContext):
     categories = await get_product_from_category(pool, category_name, city)
 
     if not categories:
-        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.", reply_markup=buttons.all_categories)
+        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.",
+                             reply_markup=buttons.all_categories)
         return
 
     for category in categories:
         photo_path = category[9]
-
-        # if not os.path.exists(photo_path):
-        #     print(f"Файл не найден: {photo_path}")
-        #     photo_path = 'media/error_img.png'  # Use the default error image path
-
 
         with open(photo_path, 'rb') as photo:
             await message.answer_photo(photo=photo, caption=f"Товар: {category[1]}\n"
@@ -76,8 +74,6 @@ async def load_category(message: types.Message, state: FSMContext):
                                                             f"Категория: {category[6]}\n"
                                                             f"Артикул: {category[7]}\n",
                                        reply_markup=buttons.all_categories)
-
-
 
 
 async def cancel_reg(message: types.Message, state: FSMContext):

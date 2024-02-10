@@ -5,10 +5,9 @@ from handlers.FSM import review_client, send_to_tg_channel, all_products, Button
 from config import dp, bot, Developers
 from handlers.commands import register_start
 from handlers import start
-from keyboards import buttons
+import buttons
 from config import data_b
 from db import db_orm
-from db.db_psql import db_osor
 
 
 # ==================================================================================================================

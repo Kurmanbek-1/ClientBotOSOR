@@ -1,5 +1,5 @@
 from aiogram import types, Dispatcher
-from keyboards import buttons
+import buttons
 from config import Admins
 
 

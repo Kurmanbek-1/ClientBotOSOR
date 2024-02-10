@@ -28,18 +28,23 @@ start = ReplyKeyboardMarkup(resize_keyboard=True,
                                              KeyboardButton('/Заказать'),
                                              KeyboardButton('/Примерить'),
                                              KeyboardButton('/Забронировать'),
-                                             KeyboardButton('/О_нас!'))
+                                             KeyboardButton('/О_нас!'),
+                                             KeyboardButton('/Ориентировка_по_боту'))
+
 
 startForAdmins = ReplyKeyboardMarkup(resize_keyboard=True,
                             one_time_keyboard=True,
                             row_width=2).add(KeyboardButton('/Клиентские_кнопки!'),
                                              KeyboardButton('/Рассылка'),
-                                             KeyboardButton('/Все_отзывы!'))
+                                             KeyboardButton('/Все_отзывы!'),
+                                             KeyboardButton('/Ориентировка_по_боту'))
+
 
 send_products = ReplyKeyboardMarkup(resize_keyboard=True,
                             one_time_keyboard=True,
                             row_width=2).add(KeyboardButton('/Готовые_товары!'),
-                                             KeyboardButton('/Вручную!'))
+                                             KeyboardButton('/Вручную!'),
+                                             KeyboardButton('/Назад'))
 
 
 finish_load_photos = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add \

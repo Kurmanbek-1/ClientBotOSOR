@@ -5,7 +5,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.dispatcher.filters import Text
 
 from config import Admins, bot, CHANNEL_ID
-from keyboards import buttons
+import buttons
 
 
 # =======================================================================================================================

@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import bot, CHANNEL_ID
 import os
-from keyboards import buttons
+import buttons
 
 # Добавим константу для количества товаров, выводимых изначально
 PRODUCTS_PER_PAGE = 7
