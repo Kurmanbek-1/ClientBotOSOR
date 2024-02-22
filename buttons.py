@@ -68,7 +68,8 @@ city_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                   ).add(KeyboardButton('Бишкек'),
                                         KeyboardButton('ОШ'),
                                         KeyboardButton('Москва 1-филиал'),
-                                        KeyboardButton('Ош 2-филиал'))
+                                        KeyboardButton('Ош 2-филиал'),
+                                        cancel_button)
 
 # ======================================================================================================================
 

@@ -6,6 +6,10 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from config import POSTGRES_URL, bot
 import buttons
 
+from handlers import commands, start
+from handlers.FSM import review_client
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
 
 async def get_conn():
     conn = await asyncpg.connect(user='postgres', password='123',
@@ -66,6 +70,17 @@ async def load_category(message: types.Message, state: FSMContext):
     for category in categories:
         photo_path = category[9]
 
+        keyboard = InlineKeyboardMarkup().add(
+            InlineKeyboardButton(
+                f"Заказать",
+                callback_data=f"to_order{category[7]}"
+            ),
+            InlineKeyboardButton(
+                f"Бронь",
+                callback_data=f"to_reservation{category[7]}"
+            )
+        )
+
         with open(photo_path, 'rb') as photo:
             await message.answer_photo(photo=photo, caption=f"Товар: {category[1]}\n"
                                                             f"Информация о товаре: {category[2]}\n"
@@ -73,7 +88,10 @@ async def load_category(message: types.Message, state: FSMContext):
                                                             f"Город: {category[5]}\n"
                                                             f"Категория: {category[6]}\n"
                                                             f"Артикул: {category[7]}\n",
-                                       reply_markup=buttons.all_categories)
+                                       reply_markup=keyboard)
+
+    await message.answer("Чтобы заказать или забронировать товар, нажмите на кнопку\n(/cancel)",
+                         reply_markup=buttons.all_categories)
 
 
 async def cancel_reg(message: types.Message, state: FSMContext):
@@ -82,10 +100,33 @@ async def cancel_reg(message: types.Message, state: FSMContext):
         await state.finish()
         await message.answer('Отменено!', reply_markup=buttons.start)
 
+async def about_command_fsm(message: types.Message, state: FSMContext):
+    current_state = await state.get_state()
+    if current_state is not None:
+        await state.finish()
+        await commands.about(message)
+
+
+async def start_command_fsm(message: types.Message, state: FSMContext):
+    current_state = await state.get_state()
+    if current_state is not None:
+        await state.finish()
+        await start.start_command(message)
+
+
+async def review_command_fsm(message: types.Message, state: FSMContext):
+    current_state = await state.get_state()
+    if current_state is not None:
+        await state.finish()
+        await review_client.fsm_start(message)
+
 
 # =======================================================================================================================
 def register_all_products(dp: Dispatcher):
     dp.register_message_handler(cancel_reg, Text(equals="/cancel", ignore_case=True), state="*")
-    dp.register_message_handler(fsm_start, commands=["Товары!", 'all_products'])
+    dp.register_message_handler(about_command_fsm, Text(equals="/about", ignore_case=True), state="*")
+    dp.register_message_handler(start_command_fsm, Text(equals="/start", ignore_case=True), state="*")
+    dp.register_message_handler(review_command_fsm, Text(equals="/review", ignore_case=True), state="*")
+    dp.register_message_handler(fsm_start, commands=["Товары!"])
     dp.register_message_handler(choose_city, state=all_products_fsm.city)
     dp.register_message_handler(load_category, state=all_products_fsm.category)

@@ -9,6 +9,7 @@ import buttons
 from config import data_b
 from db import db_orm
 
+from aiogram import types
 
 # ==================================================================================================================
 async def on_startup(_):
@@ -30,6 +31,12 @@ ButtoninProducts.register_button_all_products(dp)
 reservation.register_reservation(dp)
 order.register_order(dp)
 register_start(dp)
+
+@dp.message_handler()
+async def echo(message: types.Message):
+    await message.answer('Такой команды нет ❌\n'
+                         'Нажмите на /start и у вас выйдут все ваши кнопки!')
+
 # ===========================================================================
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
