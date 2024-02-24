@@ -26,14 +26,18 @@ class all_products_fsm(StatesGroup):
 
 async def fsm_start(message: types.Message):
     await all_products_fsm.city.set()
-    await message.answer("Выберите город:", reply_markup=buttons.city_markup)
+    await message.answer(f"Выберите город:\n\n"
+                         f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                         reply_markup=buttons.city_markup)
 
 
 async def choose_city(message: types.Message, state: FSMContext):
     selected_city = message.text
     await state.update_data(city=selected_city)
     await all_products_fsm.category.set()
-    await message.answer(f"Категория товара для города {selected_city}?", reply_markup=buttons.all_categories)
+    await message.answer(f"Категория товара для города {selected_city}?\n\n"
+                         f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                         reply_markup=buttons.all_categories)
 
 
 """Вывод категорий"""
@@ -63,14 +67,15 @@ async def load_category(message: types.Message, state: FSMContext):
     categories = await get_product_from_category(pool, category_name, city)
 
     if not categories:
-        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.",
+        await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.\n\n"
+                             f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
                              reply_markup=buttons.all_categories)
         return
 
     for category in categories:
         photo_path = category[9]
 
-        keyboard = InlineKeyboardMarkup().add(
+        keyboard = InlineKeyboardMarkup(row_width=2).add(
             InlineKeyboardButton(
                 f"Заказать",
                 callback_data=f"to_order{category[7]}"
@@ -78,6 +83,10 @@ async def load_category(message: types.Message, state: FSMContext):
             InlineKeyboardButton(
                 f"Бронь",
                 callback_data=f"to_reservation{category[7]}"
+            ),
+            InlineKeyboardButton(
+                f"Примерить",
+                callback_data=f"to_try{category[7]}"
             )
         )
 
@@ -90,7 +99,7 @@ async def load_category(message: types.Message, state: FSMContext):
                                                             f"Артикул: {category[7]}\n",
                                        reply_markup=keyboard)
 
-    await message.answer("Чтобы заказать или забронировать товар, нажмите на кнопку\n(/cancel)",
+    await message.answer("Чтобы заказать, примерить или забронировать товар, нажмите на кнопку\n(/cancel)",
                          reply_markup=buttons.all_categories)
 
 

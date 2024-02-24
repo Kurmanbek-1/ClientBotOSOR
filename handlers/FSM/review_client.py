@@ -22,15 +22,17 @@ class review_fsm(StatesGroup):
 
 
 async def fsm_start(message: types.Message):
-    await review_fsm.articule.set()
-    await message.answer("Ваше фио?", reply_markup=buttons.cancel_markup)
+    await review_fsm.fullname.set()
+    await message.answer(f"Ваше фио?\n\n"
+                         f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                         reply_markup=buttons.cancel_markup)
 
 
 async def load_fullname(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["fullname"] = message.text
     await review_fsm.next()
-    await message.answer("Название товара!?")
+    await message.answer("Артикул товара!?")
 
 
 async def load_articule(message: types.Message, state: FSMContext):
@@ -88,6 +90,7 @@ async def load_photo(message: types.Message, state: FSMContext):
         await message.answer_photo(
             data["photo"],
             caption=f"Данные товара: \n"
+                    f"ФИО: {data['fullname']}\n"
                     f"Название товара: {data['name']}\n"
                     f"Отзыв о товаре: {data['review']}\n"
                     f"Город: {data['city']}\n"
@@ -99,11 +102,12 @@ async def load_photo(message: types.Message, state: FSMContext):
 
 
 async def load_submit(message: types.Message, state: FSMContext):
-    if message.text.lower() == "Да":
+    if message.text.lower() == "да":
         async with state.proxy() as data:
             if 'photo' in data:
                 # Ваша логика обработки с фотографией
                 values = (
+                    data['fullname'],
                     data['name'],
                     data['articule'],
                     data['review'],
@@ -113,6 +117,7 @@ async def load_submit(message: types.Message, state: FSMContext):
             else:
                 # Ваша логика обработки без фотографии
                 values = (
+                    data['fullname'],
                     data['name'],
                     data['articule'],
                     data['review'],
@@ -123,7 +128,7 @@ async def load_submit(message: types.Message, state: FSMContext):
             await sql_queris.execute_query(sql_queris.INSERT_INTO_TABLE_REVIEW, values)
         await state.finish()
         await message.answer('Готово!', reply_markup=buttons.start)
-    elif message.text.lower() == 'Нет':
+    elif message.text.lower() == 'нет':
         await message.answer('Хорошо, отменено', reply_markup=buttons.start)
         await state.finish()
     else:
@@ -147,6 +152,7 @@ def register_review(dp: Dispatcher):
     )
     dp.register_message_handler(fsm_start, commands=["Написать_отзыв", "review"])
 
+    dp.register_message_handler(load_fullname, state=review_fsm.fullname)
     dp.register_message_handler(load_articule, state=review_fsm.articule)
     dp.register_message_handler(load_name, state=review_fsm.name)
     dp.register_message_handler(load_review, state=review_fsm.review)

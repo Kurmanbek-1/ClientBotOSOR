@@ -25,9 +25,6 @@ start = ReplyKeyboardMarkup(resize_keyboard=True,
                             one_time_keyboard=True,
                             row_width=2).add(KeyboardButton('/Товары!'),
                                              KeyboardButton('/Написать_отзыв'),
-                                             KeyboardButton('/Заказать'),
-                                             KeyboardButton('/Примерить'),
-                                             KeyboardButton('/Забронировать'),
                                              KeyboardButton('/О_нас!'),
                                              KeyboardButton('/Филиалы'))
 

@@ -14,7 +14,7 @@ CREATE_TABLE_REVIEW = """
 """
 
 INSERT_INTO_TABLE_REVIEW = """
-    INSERT INTO reviews(name, articule, info, city, photo) VALUES (?, ?, ?, ?, ?)
+    INSERT INTO reviews(fullname, name, articule, info, city, photo) VALUES (?, ?, ?, ?, ?, ?)
 """
 
 SELECT_CHECKS_REVIEWS = """

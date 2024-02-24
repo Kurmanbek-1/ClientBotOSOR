@@ -21,7 +21,9 @@ class OrderFSM(StatesGroup):
 async def order_FSM_start(call: types.CallbackQuery, state: FSMContext):
     async with state.proxy() as data:
         data['articule'] = call.data.replace("to_order", "").strip()
-    await call.message.answer("Ваше ФИО ?!", reply_markup=buttons.cancel_markup)
+    await call.message.answer(f"Ваше ФИО ?!\n\n"
+                              f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                              reply_markup=buttons.cancel_markup)
     await OrderFSM.full_name.set()
 
 
@@ -77,7 +79,7 @@ async def load_submit(message: types.Message, state: FSMContext):
                                        first_name=data['contact']['first_name'])
 
             else:
-                await message.answer("Отмена!")
+                await message.answer("Отмена!", reply_markup=buttons.start)
                 await state.finish()
 
     # Вывод из базы

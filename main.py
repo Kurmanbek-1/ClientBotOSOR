@@ -1,6 +1,7 @@
 from aiogram.utils import executor
 import logging
-from handlers.FSM import review_client, send_to_tg_channel, all_products, ButtoninProducts, order, reservation
+from handlers.FSM import review_client, send_to_tg_channel, all_products, \
+    ButtoninProducts, order, reservation, tryon
 # ===========================================================================
 from config import dp, bot, Developers
 from handlers.commands import register_start
@@ -27,6 +28,7 @@ send_to_tg_channel.register_send_to_channel(dp)
 
 all_products.register_all_products(dp)
 ButtoninProducts.register_button_all_products(dp)
+tryon.register_try_on(dp)
 
 reservation.register_reservation(dp)
 order.register_order(dp)
