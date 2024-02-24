@@ -55,20 +55,20 @@ async def load_photos(message: types.Message, state: FSMContext):
 # Обработчик команды /done для завершения
 async def finish_load_photos(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        last_photo = None
 
-        for i in data['photos']:
-            if i in media_group:
-                pass
-            last_photo = types.InputMediaPhoto(i)
-            media_group.attach_photo(last_photo)
+        info_for_channel = (
+            f"{data['title_for_channel']}\n\n{data['text_for_channel']}"
+        )
 
-        if last_photo:
-            last_photo.caption = f"{data['title_for_channel']}\n\n{data['text_for_channel']}"
-            media_group[-1] = last_photo
+        media_group = [types.InputMediaPhoto(media=image) for image in data['photos'][:-1]]
 
-        print(media_group[-1])
-        await bot.send_media_group(chat_id=message.from_user.id, media=media_group)
+        last_image = data['photos'][-1]
+        last_media = types.InputMediaPhoto(media=last_image, caption=info_for_channel)
+
+        media_group.append(last_media)
+
+        await bot.send_media_group(chat_id=message.chat.id,
+                                   media=media_group)
 
         await message.answer("Всё правильно?", reply_markup=buttons.submit_markup)
         await SendToChannelFSM.next()
@@ -82,7 +82,7 @@ async def load_submit(message: types.Message, state: FSMContext):
         media_group.clean()
         await message.answer('Готово!', reply_markup=buttons.start)
     else:
-        await message.answer("Отмена!")
+        await message.answer("Отмена!", reply_markup=buttons.start)
         await state.finish()
 
 

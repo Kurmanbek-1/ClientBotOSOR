@@ -8,8 +8,8 @@ cancel_markup = ReplyKeyboardMarkup(resize_keyboard=True,
 
 submit_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                     one_time_keyboard=True
-                                    ).add(KeyboardButton('да'),
-                                          KeyboardButton('нет'))
+                                    ).add(KeyboardButton('Да'),
+                                          KeyboardButton('Нет'))
 # ======================================================================================================================
 back = KeyboardButton('/<назад')
 # ======================================================================================================================

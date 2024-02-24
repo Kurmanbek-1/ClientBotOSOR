@@ -49,9 +49,9 @@ async def load_size(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['size'] = message.text
     await message.answer(f"Данные бронирования:\n"
-                         f"Ваше ФИО: {data['full_name']}"
+                         f"Размер: {data['size']}\n"
                          f"Артикул товара: {data['articule']}\n"
-                         f"Размер: {data['size']}")
+                         f"Ваше ФИО: {data['full_name']}")
     await message.answer("Всё правильно?", reply_markup=buttons.submit_markup)
     await ReservationFSM.next()
 
@@ -67,8 +67,8 @@ async def load_submit(message: types.Message, state: FSMContext):
 
                 await bot.send_message(chat_id=i, text=f"📌Бронь:\n"
                                                        f"ФИО: {data['full_name']}\n"
-                                                       f"Атикул: {data['articule']}\n"
                                                        f"Размер: {data['size']}\n"
+                                                       f"Атикул: {data['articule']}\n"
                                                        f"\n\n"
                                                        f"Снизу контакты клиента ⬇️")
                 await bot.send_contact(chat_id=i,

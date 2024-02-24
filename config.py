@@ -5,7 +5,7 @@ from db.db_psql.db_osor import Database
 
 storage = MemoryStorage()
 
-TOKEN = "7022495453:AAHseOVVzCl5mDSrfKQivn9y55iKxIMntpU"
+TOKEN = "6664323534:AAGINBs1rzRZ3wsyTjE1YFKUrcbGb57FLfQ"
 CHANNEL_ID = int(config('CHANNEL_ID'))
 
 
@@ -34,7 +34,7 @@ bot = Bot(TOKEN)
 
 dp = Dispatcher(bot=bot, storage=storage)
 
-POSTGRES_URL = "postgresql://postgres:123@postgres_compass:5432/osor_tg_bot"
+POSTGRES_URL = "postgresql://postgres:123@localhost:5432/osor_tg_bot"
 data_b = Database(POSTGRES_URL)
 
 

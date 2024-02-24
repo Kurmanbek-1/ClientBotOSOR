@@ -79,11 +79,11 @@ async def load_photo(message: types.Message, state: FSMContext):
         await message.answer_photo(
             data["photo"],
             caption=f"Данные товара: \n"
-                    f"Артикул товара: {data['articule']}\n"
                     f"Название товара: {data['name']}\n"
                     f"Отзыв о товаре: {data['review']}\n"
-                    f"Город: {data['city']}",
-        )
+                    f"Город: {data['city']}\n"
+                    f"Артикул товара: {data['articule']}\n")
+
         await review_fsm.next()
         await message.answer("Все верно?", reply_markup=buttons.submit_markup)
 
