@@ -11,6 +11,7 @@ from db import sql_queris
 
 
 class review_fsm(StatesGroup):
+    fullname = State()
     articule = State()
     name = State()
     review = State()
@@ -22,7 +23,14 @@ class review_fsm(StatesGroup):
 
 async def fsm_start(message: types.Message):
     await review_fsm.articule.set()
-    await message.answer("Артикул товара?", reply_markup=buttons.cancel_markup)
+    await message.answer("Ваше фио?", reply_markup=buttons.cancel_markup)
+
+
+async def load_fullname(message: types.Message, state: FSMContext):
+    async with state.proxy() as data:
+        data["fullname"] = message.text
+    await review_fsm.next()
+    await message.answer("Название товара!?")
 
 
 async def load_articule(message: types.Message, state: FSMContext):
@@ -60,10 +68,11 @@ async def submit_photo(message: types.Message, state: FSMContext):
     elif message.text == 'Нет':
         async with state.proxy() as data:
             data["date"] = datetime.now()
-            await message.answer(f"Артикул товара: {data['articule']}"
+            await message.answer(f"ФИО: {data['fullname']}\n"
+                                 f"Артикул товара: {data['articule']}\n"
                                  f"Название товара: {data['name']}\n"
                                  f"Отзыв о товаре: {data['review']}\n"
-                                 f"Город: {data['city']}", )
+                                 f"Город: {data['city']}")
             await review_fsm.submit.set()
             await message.answer("Все верно?", reply_markup=buttons.submit_markup)
     else:
@@ -88,10 +97,9 @@ async def load_photo(message: types.Message, state: FSMContext):
         await message.answer("Все верно?", reply_markup=buttons.submit_markup)
 
 
-# ...
 
 async def load_submit(message: types.Message, state: FSMContext):
-    if message.text.lower() == "да":
+    if message.text.lower() == "Да":
         async with state.proxy() as data:
             if 'photo' in data:
                 # Ваша логика обработки с фотографией
@@ -115,7 +123,7 @@ async def load_submit(message: types.Message, state: FSMContext):
             await sql_queris.execute_query(sql_queris.INSERT_INTO_TABLE_REVIEW, values)
         await state.finish()
         await message.answer('Готово!', reply_markup=buttons.start)
-    elif message.text.lower() == 'нет':
+    elif message.text.lower() == 'Нет':
         await message.answer('Хорошо, отменено', reply_markup=buttons.start)
         await state.finish()
     else:

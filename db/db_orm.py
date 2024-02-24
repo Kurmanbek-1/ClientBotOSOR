@@ -38,6 +38,7 @@ async def get_all_reviews(message: types.Message):
                 chat_id=message.from_user.id,
                 photo=photo,
                 caption=f"Данные товара: \n"
+                        f"Фио: {review_dict['fullname']}"
                         f"Артикуль товара: {review_dict['articule']}\n"
                         f"Название товара: {review_dict['name']}\n"
                         f"Отзыв о товаре: {review_dict['info']}\n"
