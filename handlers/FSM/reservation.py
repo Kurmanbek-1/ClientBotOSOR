@@ -60,8 +60,10 @@ async def load_submit(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         for i in Manager:
             if message.text.lower() == 'да':
+                await state.finish()
                 await message.answer('Отлично!\n'
-                                     'Ваш заказ принят! Пожалуйста ожидайте с вами свяжутся наши менеджеры')
+                                     'Ваша бронь принята! ✅\n'
+                                     'Пожалуйста ожидайте с вами свяжутся наши менеджеры ⏳', reply_markup=buttons.start)
 
                 await bot.send_message(chat_id=i, text=f"📌Бронь:\n"
                                                        f"ФИО: {data['full_name']}\n"
@@ -76,7 +78,7 @@ async def load_submit(message: types.Message, state: FSMContext):
 
             else:
                 await message.answer("Отмена!")
-                await state.finish()
+
 
     # Вывод из базы
 

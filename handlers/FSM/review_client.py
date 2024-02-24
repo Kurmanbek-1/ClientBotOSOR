@@ -113,8 +113,8 @@ async def load_submit(message: types.Message, state: FSMContext):
                 )
 
             await sql_queris.execute_query(sql_queris.INSERT_INTO_TABLE_REVIEW, values)
-        await message.answer('Готово!', reply_markup=buttons.start)
         await state.finish()
+        await message.answer('Готово!', reply_markup=buttons.start)
     elif message.text.lower() == 'нет':
         await message.answer('Хорошо, отменено', reply_markup=buttons.start)
         await state.finish()
