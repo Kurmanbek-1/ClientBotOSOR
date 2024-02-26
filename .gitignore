@@ -1,8 +1,5 @@
 .idea
 venv
 **/__pycache__/
-<<<<<<< HEAD
 .env
-=======
 **/__init__.py/
->>>>>>> 7da9d53b6dcde7200d1ff53b881a2654fc24950e

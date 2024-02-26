@@ -53,7 +53,7 @@ async def load_size(message: types.Message, state: FSMContext):
         data['size'] = message.text
     await message.answer(f"Данные о товаре:\n"
                          f"Размер: {data['size']}\n"
-                         f"Артикул товара: {data['articule']}"
+                         f"Артикул товара: {data['articule']}\n"
                          f"Ваше ФИО: {data['full_name']}")
     await message.answer("Всё правильно?", reply_markup=buttons.submit_markup)
     await OrderFSM.next()

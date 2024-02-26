@@ -103,19 +103,6 @@ async def ButtonClient(message: types.Message):
     await message.answer('Вы перешли к клиентским кнопкам!', reply_markup=buttons.start)
 
 
-async def support_error(message: types.Message):
-    await message.answer(text='Филиалы ⬇️\n\n'
-                              'Бишкек - Бишкекский филиал\n'
-                              'Адрес - Токомбаева 17/2 Тц Томми Молл'
-                              '\n\n'
-                              'Ош - Ошский филиал\n'
-                              'Адрес - Масалиева 24 Тц Ак-Кеме'
-                              '\n\n'
-                              'Ош 2-филиал - Второй филиал в городе Ош\n'
-                              'Адрес - Шакирова 30 Тц Макском',
-                         reply_markup=buttons.start
-                         )
-
 
 # ==================================================================================================================
 
@@ -133,4 +120,3 @@ def register_start(dp: Dispatcher):
     dp.register_message_handler(send_products, commands=['Рассылка'])
     # ======================================================================
     dp.register_message_handler(ButtonClient, commands=['Клиентские_кнопки!'])
-    dp.register_message_handler(support_error, commands=['Филиалы'])

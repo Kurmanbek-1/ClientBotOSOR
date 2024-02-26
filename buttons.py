@@ -66,6 +66,7 @@ city_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                         KeyboardButton('Ош'),
                                         KeyboardButton('Москва'))
 
+
 # ======================================================================================================================
 
 all_categories = ReplyKeyboardMarkup(resize_keyboard=True,
