@@ -63,10 +63,8 @@ city_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                   one_time_keyboard=True,
                                   row_width=2
                                   ).add(KeyboardButton('Бишкек'),
-                                        KeyboardButton('ОШ'),
-                                        KeyboardButton('Москва 1-филиал'),
-                                        KeyboardButton('Ош 2-филиал'),
-                                        cancel_button)
+                                        KeyboardButton('Ош'),
+                                        KeyboardButton('Москва'))
 
 # ======================================================================================================================
 
@@ -78,6 +76,31 @@ all_categories = ReplyKeyboardMarkup(resize_keyboard=True,
                                                       KeyboardButton('Верхняя_одежда'),
                                                       KeyboardButton('Штаны'),
                                                       cancel_button)
+
+all_categories_bishkek = ReplyKeyboardMarkup(resize_keyboard=True,
+                                     one_time_keyboard=True,
+                                     row_width=2).add(KeyboardButton('Обувь_Бишкек'),
+                                                      KeyboardButton('Нижнее_белье_Бишкек'),
+                                                      KeyboardButton('Акссесуары_Бишкек'),
+                                                      KeyboardButton('Верхняя_одежда_Бишкек'),
+                                                      KeyboardButton('Штаны_Бишкек'))
+
+all_categories_osh = ReplyKeyboardMarkup(resize_keyboard=True,
+                                     one_time_keyboard=True,
+                                     row_width=2).add(KeyboardButton('Обувь_Ош'),
+                                                      KeyboardButton('Нижнее_белье_Ош'),
+                                                      KeyboardButton('Акссесуары_Ош'),
+                                                      KeyboardButton('Верхняя_одежда_Ош'),
+                                                      KeyboardButton('Штаны_Ош'))
+
+all_categories_moscow = ReplyKeyboardMarkup(resize_keyboard=True,
+                                     one_time_keyboard=True,
+                                     row_width=2).add(KeyboardButton('Обувь_Москва'),
+                                                      KeyboardButton('Нижнее_белье_Москва'),
+                                                      KeyboardButton('Акссесуары_Москва'),
+                                                      KeyboardButton('Верхняя_одежда_Москва'),
+                                                      KeyboardButton('Штаны_Москва'))
+
 
 price_categories = ReplyKeyboardMarkup(resize_keyboard=True,
                                        one_time_keyboard=True,
