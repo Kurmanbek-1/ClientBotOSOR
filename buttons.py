@@ -10,6 +10,8 @@ submit_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                     one_time_keyboard=True
                                     ).add(KeyboardButton('Да'),
                                           KeyboardButton('Нет'))
+
+back_button = KeyboardButton('<Назад')
 # ======================================================================================================================
 back = KeyboardButton('/<назад')
 # ======================================================================================================================
@@ -28,24 +30,22 @@ start = ReplyKeyboardMarkup(resize_keyboard=True,
                                              KeyboardButton('/О_нас!'),
                                              KeyboardButton('/Филиалы'))
 
-
 startForAdmins = ReplyKeyboardMarkup(resize_keyboard=True,
-                            one_time_keyboard=True,
-                            row_width=2).add(KeyboardButton('/Клиентские_кнопки!'),
-                                             KeyboardButton('/Рассылка'),
-                                             KeyboardButton('/Все_отзывы!'),
-                                             KeyboardButton('/Филиалы'))
-
+                                     one_time_keyboard=True,
+                                     row_width=2).add(KeyboardButton('/Клиентские_кнопки!'),
+                                                      KeyboardButton('/Рассылка'),
+                                                      KeyboardButton('/Все_отзывы!'),
+                                                      KeyboardButton('/Филиалы'))
 
 send_products = ReplyKeyboardMarkup(resize_keyboard=True,
-                            one_time_keyboard=True,
-                            row_width=2).add(KeyboardButton('/Готовые_товары!'),
-                                             KeyboardButton('/Вручную!'),
-                                             KeyboardButton('/Назад'))
+                                    one_time_keyboard=True,
+                                    row_width=2).add(KeyboardButton('/Готовые_товары!'),
+                                                     KeyboardButton('/Вручную!'),
+                                                     KeyboardButton('/Назад'))
 
-
-finish_load_photos = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add \
-    (KeyboardButton('/Это_все_сохранить_фото'))
+finish_load_photos = ReplyKeyboardMarkup(resize_keyboard=True,
+                                         one_time_keyboard=True).add(KeyboardButton('/Это_все_сохранить_фото'),
+                                                                     cancel_button)
 
 # ======================================================================================================================
 
@@ -58,14 +58,13 @@ OrderWhereCategory = ReplyKeyboardMarkup(resize_keyboard=True,
                                                           KeyboardButton('/Штаны'),
                                                           back)
 
-
 city_markup = ReplyKeyboardMarkup(resize_keyboard=True,
                                   one_time_keyboard=True,
                                   row_width=2
                                   ).add(KeyboardButton('Бишкек'),
                                         KeyboardButton('Ош'),
-                                        KeyboardButton('Москва'))
-
+                                        KeyboardButton('Москва'),
+                                        back_button)
 
 # ======================================================================================================================
 
@@ -79,36 +78,30 @@ all_categories = ReplyKeyboardMarkup(resize_keyboard=True,
                                                       cancel_button)
 
 all_categories_bishkek = ReplyKeyboardMarkup(resize_keyboard=True,
-                                     one_time_keyboard=True,
-                                     row_width=2).add(KeyboardButton('Обувь_Бишкек'),
-                                                      KeyboardButton('Нижнее_белье_Бишкек'),
-                                                      KeyboardButton('Акссесуары_Бишкек'),
-                                                      KeyboardButton('Верхняя_одежда_Бишкек'),
-                                                      KeyboardButton('Штаны_Бишкек'))
+                                             one_time_keyboard=True,
+                                             row_width=2).add(KeyboardButton('Обувь_Бишкек'),
+                                                              KeyboardButton('Нижнее_белье_Бишкек'),
+                                                              KeyboardButton('Акссесуары_Бишкек'),
+                                                              KeyboardButton('Верхняя_одежда_Бишкек'),
+                                                              KeyboardButton('Штаны_Бишкек'),
+                                                              back_button)
 
 all_categories_osh = ReplyKeyboardMarkup(resize_keyboard=True,
-                                     one_time_keyboard=True,
-                                     row_width=2).add(KeyboardButton('Обувь_Ош'),
-                                                      KeyboardButton('Нижнее_белье_Ош'),
-                                                      KeyboardButton('Акссесуары_Ош'),
-                                                      KeyboardButton('Верхняя_одежда_Ош'),
-                                                      KeyboardButton('Штаны_Ош'))
+                                         one_time_keyboard=True,
+                                         row_width=2).add(KeyboardButton('Обувь_Ош'),
+                                                          KeyboardButton('Нижнее_белье_Ош'),
+                                                          KeyboardButton('Акссесуары_Ош'),
+                                                          KeyboardButton('Верхняя_одежда_Ош'),
+                                                          KeyboardButton('Штаны_Ош'),
+                                                          back_button)
 
 all_categories_moscow = ReplyKeyboardMarkup(resize_keyboard=True,
-                                     one_time_keyboard=True,
-                                     row_width=2).add(KeyboardButton('Обувь_Москва'),
-                                                      KeyboardButton('Нижнее_белье_Москва'),
-                                                      KeyboardButton('Акссесуары_Москва'),
-                                                      KeyboardButton('Верхняя_одежда_Москва'),
-                                                      KeyboardButton('Штаны_Москва'))
+                                            one_time_keyboard=True,
+                                            row_width=2).add(KeyboardButton('Обувь_Москва'),
+                                                             KeyboardButton('Нижнее_белье_Москва'),
+                                                             KeyboardButton('Акссесуары_Москва'),
+                                                             KeyboardButton('Верхняя_одежда_Москва'),
+                                                             KeyboardButton('Штаны_Москва'),
+                                                             back_button)
 
-
-price_categories = ReplyKeyboardMarkup(resize_keyboard=True,
-                                       one_time_keyboard=True,
-                                       row_width=2
-                                       ).add(KeyboardButton('До_2000сом'),
-                                             KeyboardButton('2000_4000сом'),
-                                             KeyboardButton('4000_6000сом'),
-                                             KeyboardButton('+6000сом'),
-                                             KeyboardButton("/Все_цены!"))
 # ======================================================================================================================

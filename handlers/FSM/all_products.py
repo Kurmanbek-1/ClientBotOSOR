@@ -1,16 +1,9 @@
 import asyncpg
 from aiogram import types, Dispatcher
-from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters import Text
-from aiogram.dispatcher.filters.state import State, StatesGroup
 from config import POSTGRES_URL, bot
 import buttons
-
-from handlers import commands, start
-from handlers.FSM import review_client
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-from handlers.FSM.order import order_FSM_start
 
 
 # =======================================================================================================================
@@ -33,15 +26,18 @@ async def all_products(message: types.Message):
                          f"Для перехода в главное меню нажмите на кнопку /start",
                          reply_markup=buttons.city_markup)
 
+
 async def all_products_bishkek(message: types.Message):
     await message.answer(f"Выберите категорию товара:\n\n"
                          f"Для перехода в главное меню нажмите на кнопку /start",
                          reply_markup=buttons.all_categories_bishkek)
 
+
 async def all_products_osh(message: types.Message):
     await message.answer(f"Выберите категорию товара:\n\n"
                          f"Для перехода в главное меню нажмите на кнопку /start",
                          reply_markup=buttons.all_categories_osh)
+
 
 async def all_products_moscow(message: types.Message):
     await message.answer(f"Выберите категорию товара:\n\n"
@@ -53,7 +49,6 @@ async def all_products_moscow(message: types.Message):
 
 
 async def load_category(message: types.Message, city: str, category: str):
-
     pool = await asyncpg.create_pool(POSTGRES_URL)  # Инициализируем переменную conn перед try
 
     categories = await get_product_from_category(pool, category, city)
@@ -100,7 +95,6 @@ async def load_category(message: types.Message, city: str, category: str):
                                                                 f"Артикул: {category[7]}\n",
                                            reply_markup=keyboard)
 
-
         if city == "Бишкек":
             await message.answer(f"Это все товары из категории - {category[6]}",
                                  reply_markup=buttons.all_categories_bishkek)
@@ -111,17 +105,22 @@ async def load_category(message: types.Message, city: str, category: str):
             await message.answer(f"Это все товары из категории - {category[6]}",
                                  reply_markup=buttons.all_categories_moscow)
 
+
 async def all_products_bishkek_obuv(message: types.Message):
     await load_category(message, city="Бишкек", category="Обувь")
+
 
 async def all_products_bishkek_nijnee(message: types.Message):
     await load_category(message, city="Бишкек", category="Нижнее_белье")
 
+
 async def all_products_bishkek_accesuary(message: types.Message):
     await load_category(message, city="Бишкек", category="Акссесуары")
 
+
 async def all_products_bishkek_verhniya(message: types.Message):
     await load_category(message, city="Бишкек", category="Верхняя_одежда")
+
 
 async def all_products_bishkek_shtany(message: types.Message):
     await load_category(message, city="Бишкек", category="Штаны")
@@ -165,7 +164,6 @@ async def all_products_moscow_verhniya(message: types.Message):
 
 async def all_products_moscow_shtany(message: types.Message):
     await load_category(message, city="Москва", category="Штаны")
-
 
 
 # =======================================================================================================================

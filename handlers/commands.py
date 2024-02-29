@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 import buttons
 from config import Admins, Developers, Director
+from aiogram.dispatcher.filters import Text
 
 
 async def support(message: types.Message):
@@ -63,15 +64,9 @@ async def send_products(message: types.Message):
 # ==================================================================================================================
 
 
-async def price_categories(message: types.Message):
-    await message.answer("Выберите снизу ценовую категорию! ⬇️", reply_markup=buttons.price_categories)
-
-
 async def order_products(message: types.Message):
     await message.answer("Вы зашли в заказы товара! \n"
                          "Здесь можете заполнить данные о товаре \nкоторый хотите заказть! ⬇️")
-
-
 
 
 async def shoes(message: types.Message):
@@ -91,22 +86,22 @@ async def price(message: types.Message):
         pass
 
 
-async def all_price(message: types.Message):
-    await message.answer("Здесь будут товары всех ценовых категорий! ⬇")
-
-
-async def all_products(message: types.Message):
-    await message.answer("Выберите филиал 📍", reply_markup=buttons.all_products)
-
-
 async def ButtonClient(message: types.Message):
     await message.answer('Вы перешли к клиентским кнопкам!', reply_markup=buttons.start)
 
+
+async def backbuttons(message: types.Message):
+    if message.from_user in Admins:
+        await message.answer('Вы пепрешли назад!', reply_markup=buttons.startForAdmins)
+
+    else:
+        await message.answer('Вы пепрешли назад!', reply_markup=buttons.start)
 
 
 # ==================================================================================================================
 
 def register_start(dp: Dispatcher):
+    dp.register_message_handler(backbuttons, Text(equals="<Назад"))
     dp.register_message_handler(back, commands=['<назад'])
     dp.register_message_handler(backadmins, commands=['Назад'])
     dp.register_message_handler(about, commands=['О_нас!', 'about'])
@@ -114,9 +109,6 @@ def register_start(dp: Dispatcher):
     dp.register_message_handler(order_products, commands=['Заказать'])
     dp.register_message_handler(shoes, commands=['Обувь', 'Нижнее_белье', 'Акссесуары', 'Верхняя_одежда', 'Штаны'])
     # ======================================================================
-    dp.register_message_handler(all_products, commands=['Товары'])
-    dp.register_message_handler(price_categories, commands=['Все_товары!'])
-    dp.register_message_handler(all_price, commands=['Все_цены!'])
     dp.register_message_handler(send_products, commands=['Рассылка'])
     # ======================================================================
     dp.register_message_handler(ButtonClient, commands=['Клиентские_кнопки!'])
