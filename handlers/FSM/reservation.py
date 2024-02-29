@@ -19,12 +19,14 @@ class ReservationFSM(StatesGroup):
 
 
 async def reservation_FSM_start(call: types.CallbackQuery, state: FSMContext):
+    await state.finish()
     async with state.proxy() as data:
         data['articule'] = call.data.replace("to_reservation", "").strip()
-    await ReservationFSM.full_name.set()
-    await call.message.answer(f"Ваше ФИО ?!\n\n"
+    await call.message.reply(f"‼Бронь Товара\n\n"
+                              f"‼Ваше ФИО ?!\n\n"
                               f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
                               reply_markup=buttons.cancel_markup)
+    await ReservationFSM.full_name.set()
 
 
 async def load_fullname(message: types.Message, state: FSMContext):
@@ -118,7 +120,7 @@ def register_reservation(dp: Dispatcher):
     dp.register_message_handler(start_command_fsm, Text(equals="/start", ignore_case=True), state="*")
     dp.register_message_handler(review_command_fsm, Text(equals="/review", ignore_case=True), state="*")
     dp.register_callback_query_handler(reservation_FSM_start,
-                                       lambda call: call.data and call.data.startswith("to_reservation"))
+                                       lambda call: call.data and call.data.startswith("to_reservation"), state="*")
     dp.register_message_handler(load_fullname, state=ReservationFSM.full_name)
     dp.register_message_handler(load_contact, state=ReservationFSM.contact, content_types=['contact'])
     dp.register_message_handler(load_size, state=ReservationFSM.size)

@@ -15,7 +15,7 @@ chat_counters = {}
 
 async def get_conn():
     conn = await asyncpg.connect(user='postgres', password='123',
-                                 database='osor_tg_bot', host='localhost')
+                                 database='osor_tg_bot', host='postgres_compass')
     return conn
 
 

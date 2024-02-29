@@ -19,9 +19,11 @@ class OrderFSM(StatesGroup):
 
 
 async def order_FSM_start(call: types.CallbackQuery, state: FSMContext):
+    await state.finish()
     async with state.proxy() as data:
         data['articule'] = call.data.replace("to_order", "").strip()
-    await call.message.answer(f"Ваше ФИО ?!\n\n"
+    await call.message.reply(f"‼Заказ Товара\n\n"
+                              f"‼Ваше ФИО ?!\n\n"
                               f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
                               reply_markup=buttons.cancel_markup)
     await OrderFSM.full_name.set()
@@ -119,7 +121,7 @@ def register_order(dp: Dispatcher):
     dp.register_message_handler(start_command_fsm, Text(equals="/start", ignore_case=True), state="*")
     dp.register_message_handler(review_command_fsm, Text(equals="/review", ignore_case=True), state="*")
     dp.register_callback_query_handler(order_FSM_start,
-                                       lambda call: call.data and call.data.startswith("to_order"))
+                                       lambda call: call.data and call.data.startswith("to_order"), state="*")
     dp.register_message_handler(load_fullname, state=OrderFSM.full_name)
     dp.register_message_handler(load_contact, state=OrderFSM.contact, content_types=['contact'])
     dp.register_message_handler(load_size, state=OrderFSM.size)
