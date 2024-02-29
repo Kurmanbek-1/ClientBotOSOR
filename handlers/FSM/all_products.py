@@ -27,7 +27,7 @@ class all_products_fsm(StatesGroup):
 async def fsm_start(message: types.Message):
     await all_products_fsm.city.set()
     await message.answer(f"Выберите город:\n\n"
-                         f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                         f"Для перехода в главное меню нажмите на кнопку /cancel",
                          reply_markup=buttons.city_markup)
 
 
@@ -36,7 +36,7 @@ async def choose_city(message: types.Message, state: FSMContext):
     await state.update_data(city=selected_city)
     await all_products_fsm.category.set()
     await message.answer(f"Категория товара для города {selected_city}?\n\n"
-                         f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                         f"Для перехода в главное меню нажмите на кнопку /cancel",
                          reply_markup=buttons.all_categories)
 
 
@@ -68,7 +68,7 @@ async def load_category(message: types.Message, state: FSMContext):
 
     if not categories:
         await message.answer(f"Категория '{category_name}' в городе '{city}' не найдена.\n\n"
-                             f"Для выхода из заполнения анкеты и перехода в главное меню нажмите на кнопку /cancel",
+                             f"Для перехода в главное меню нажмите на кнопку /cancel",
                              reply_markup=buttons.all_categories)
         return
 
@@ -99,7 +99,7 @@ async def load_category(message: types.Message, state: FSMContext):
                                                             f"Артикул: {category[7]}\n",
                                        reply_markup=keyboard)
 
-    await message.answer("Чтобы заказать, примерить или забронировать товар, нажмите на кнопку\n(/cancel)",
+    await message.answer(f"Для перехода в главное меню нажмите на кнопку /cancel",
                          reply_markup=buttons.all_categories)
 
 

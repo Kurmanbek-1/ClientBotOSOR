@@ -32,21 +32,21 @@ async def load_fullname(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["fullname"] = message.text
     await review_fsm.next()
-    await message.answer("Артикул товара!?")
+    await message.answer("Артикул товара!?", reply_markup=buttons.cancel_markup)
 
 
 async def load_articule(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["articule"] = message.text
     await review_fsm.next()
-    await message.answer("Название товара!?")
+    await message.answer("Название товара!?", reply_markup=buttons.cancel_markup)
 
 
 async def load_name(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data["name"] = message.text
     await review_fsm.next()
-    await message.answer("Отзыв о товаре!?\n" "?/5")
+    await message.answer("Отзыв о товаре!?\n" "?/5", reply_markup=buttons.cancel_markup)
 
 
 async def load_review(message: types.Message, state: FSMContext):
@@ -66,7 +66,7 @@ async def load_city(message: types.Message, state: FSMContext):
 async def submit_photo(message: types.Message, state: FSMContext):
     if message.text == "Да":
         await review_fsm.next()
-        await message.answer("Отправьте фотку товара")
+        await message.answer("Отправьте фотку товара", reply_markup=buttons.cancel_markup)
     elif message.text == 'Нет':
         async with state.proxy() as data:
             data["date"] = datetime.now()

@@ -2,6 +2,7 @@ import sqlite3
 from aiogram import types, Dispatcher
 from config import Admins, bot
 from db import sql_queris
+import buttons
 
 db = sqlite3.connect("db/review.db")
 cursor = db.cursor()
@@ -43,7 +44,8 @@ async def get_all_reviews(message: types.Message):
                         f"Отзыв о товаре: {review_dict['info']}\n"
                         f"Город: {review_dict['city']}\n"
                         f"Артикуль товара: {review_dict['articule']}",
-            )
+            reply_markup=buttons.startForAdmins)
+
 
 
 def sql_get_ORM(dp: Dispatcher):

@@ -13,7 +13,7 @@ Director = [659106628, 995712956]
 
 Admins = [659106628, ]
 
-Developers = [995712956, ]
+Developers = [659106628, ]
 
 
 Manager = [659106628, ]
