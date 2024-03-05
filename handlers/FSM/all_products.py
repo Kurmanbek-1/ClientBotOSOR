@@ -96,6 +96,7 @@ async def load_category(message: types.Message, state: FSMContext):
                                                reply_markup=keyboard)
                 await message.answer(f"Это все товары из категории: {category[6]}",
                                 reply_markup=buttons.city_markup)
+
             else:
                 chunks = [categories[i:i + 5] for i in range(0, len(categories), 5)]
                 data = await state.get_data()
